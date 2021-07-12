@@ -4,4 +4,4 @@
 
 #### Demo Video:
 
-[Working](https://github.com/rishabhAjay/circularBufferOpenGL/blob/master/Videos%20and%20Images/2021-07-12%2012-25-56.mp4)
+[Working](https://github.com/rishabhAjay/circularBufferOpenGL/blob/master/Videos%20and%20Images/2021-07-12%2014-42-28.mp4)

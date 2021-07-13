@@ -11,18 +11,17 @@ void display();
 
 struct elem
 {
-	char c[20];
+	char c[5];
 };
 
-elem cqueue[20];
+elem cqueue[5];
 int front = 0, rear = 0, n = 5;
 
 void init() {
 	glClearColor(0.8, 0.8, 0.8, 1.0); //set the color of the screen
 }
 
-void drawBitmap(const char* string, float x, float y)
-{
+void drawBitmap(const char* string, float x, float y) {
 	glColor3f(0.0f, 0.0f, 0.0f);
 	glRasterPos2f(x, y);
 	
@@ -57,6 +56,7 @@ void frontAndRear(int f, int r) {
 		glVertex2f(170 + r * 100, 340);
 	glEnd();
 }
+
 void insert() {
 
 	if (front == 0 && rear == 0)
@@ -104,9 +104,7 @@ void display() {
 	drawBitmap("2. Enter d to Pop", 300, 610);
 	drawBitmap("3. Enter q to Quit", 300, 570);
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity(); //reset any matrix transformations
-	//clear the frame buffer first
-	//frame buffer refers to the pixels on the window			
+	glLoadIdentity(); 			
 	for (int i = 0; i < 500; i += 100) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glColor3f(1.0, 0.5, 0.5);
@@ -117,6 +115,7 @@ void display() {
 			glVertex2f(300 + i, 300);
 			glVertex2f(300 + i, 200);
 		glEnd();
+		
 		glBegin(GL_LINE_LOOP);
 			glColor3f(1,1,1);
 			glVertex2f(200 + i, 200);
@@ -129,6 +128,7 @@ void display() {
 			glColor3f(1, 1, 1);
 		glEnd();
 	}
+	
 		glBegin(GL_LINES);
 			glColor3f(0, 0, 0);
 			glVertex2f(650, 200);
@@ -152,10 +152,10 @@ void display() {
 			glVertex2f(250, 200);
 			glVertex2f(275, 175);
 		glEnd();
+	
 		frontAndRear(front, rear);
 		if (front != 0 && rear != 0)
 		{
-			
 			int i = front;
 			glColor3f(1, 1, 1);
 			glRasterPos2f(140 + ((i) * 100), (250));
@@ -172,37 +172,30 @@ void display() {
 							glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, cqueue[i].c[j]);
 				}
 		}
-	glutSwapBuffers(); //display the updated frame buffer(the pixels)
-
+	glutSwapBuffers(); 
 }
 
-void render() //display function 
-{
-	glClear(GL_COLOR_BUFFER_BIT); //resetting the screen
+void render() {
+	glClear(GL_COLOR_BUFFER_BIT);
 	if (front == 0)
 	{
 		drawBitmap("1. Enter i to Push", 300, 650);
 		drawBitmap("2. Enter d to Pop", 300, 610);
 		drawBitmap("3. Enter q to Quit", 300,570);
 		drawBitmap("QUEUE EMPTY", 300, 450);
-		glFlush();
 		glutSwapBuffers();
-		Sleep(0);
 	}
 	else {
 		glFlush();
 		display();
-		
 	}
 }
 
-void keyboard(unsigned char key, int x, int y)
-{
+void keyboard(unsigned char key, int x, int y) {
 	switch (key)
 	{
 	case 'i' | 'I': insert(); render();
 		break;
-
 	case 'd' | 'D':  delete1();  render();
 		break;
 	case 'q' | 'Q': exit(0);

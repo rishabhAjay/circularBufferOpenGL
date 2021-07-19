@@ -3,7 +3,7 @@
 #include<string> 
 #include<cstring>
 #include<math.h>
-#include <regex>
+#include <cstdlib>
 using namespace std;
 
 void reshape(int, int);
@@ -15,7 +15,6 @@ struct elem
 };
 
 elem cqueue[5];
-
 int front = 0, rear = 0, n = 5;
 
 void init() {
@@ -62,20 +61,11 @@ void frontAndRear(int f, int r) {
 }
 
 void insert() {
-	regex b("[0-9]");
+
 	if (front == 0 && rear == 0)
 	{
 		cout << "\nEnter the Element: ";
 		cin >> cqueue[1].c;
-	    while(true) {
-			if (!(regex_match(cqueue[1].c, b))) {
-				cout << "\nEnter a single digit Element: ";
-				cin >> cqueue[1].c;
-			}
-			else {
-				break;
-			}
-		}
 		rear = 1;
 		front = 1;
 	}
@@ -93,15 +83,6 @@ void insert() {
 		{
 			cout << "\nEnter the Element: ";
 			cin >> cqueue[next].c;
-			while (true) {
-				if (!(regex_match(cqueue[next].c, b))) {
-					cout << "\nEnter a single digit Element: ";
-					cin >> cqueue[next].c;
-				}
-				else {
-					break;
-				}
-			}
 			rear = next;
 		}
 		
@@ -129,83 +110,81 @@ void display() {
 	glLoadIdentity(); //reset any matrix transformations
 	//clear the frame buffer first
 	//frame buffer refers to the pixels on the window			
-	for (int i = 0; i < n * 100; i += 100) {
+	for (int i = 0; i < n*100; i += 100) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glColor3f(1.0, 0.5, 0.5);
 
 		glBegin(GL_POLYGON);
-		glVertex2f(200 + i, 200);
-		glVertex2f(200 + i, 300);
-		glVertex2f(300 + i, 300);
-		glVertex2f(300 + i, 200);
+			glVertex2f(200 + i, 200);
+			glVertex2f(200 + i, 300);
+			glVertex2f(300 + i, 300);
+			glVertex2f(300 + i, 200);
 		glEnd();
 		glLineWidth(2);
 		glBegin(GL_LINE_LOOP);
-		glColor3f(1, 1, 1);
-		glVertex2f(200 + i, 200);
-		glColor3f(1, 1, 1);
-		glVertex2f(200 + i, 300);
-		glColor3f(1, 1, 1);
-		glVertex2f(300 + i, 300);
-		glColor3f(1, 1, 1);
-		glVertex2f(300 + i, 200);
-		glColor3f(1, 1, 1);
+			glColor3f(1,1,1);
+			glVertex2f(200 + i, 200);
+			glColor3f(1, 1, 1);
+			glVertex2f(200 + i, 300);
+			glColor3f(1, 1, 1);
+			glVertex2f(300 + i, 300);
+			glColor3f(1, 1, 1);
+			glVertex2f(300 + i, 200);
+			glColor3f(1, 1, 1);
 		glEnd();
 	}
-	glLineWidth(2);
-	glBegin(GL_LINES);
-	glColor3f(0, 0, 0);
-	glVertex2f(650, 200);
-	glColor3f(0, 0, 0);
-	glVertex2f(650, 150);
-	glColor3f(0, 0, 0);
-	glVertex2f(650, 150);
-	glColor3f(0, 0, 0);
-	glVertex2f(250, 150);
-	glColor3f(0, 0, 0);
-	glVertex2f(250, 150);
-	glColor3f(0, 0, 0);
-	glVertex2f(250, 200);
-	glColor3f(0, 0, 0);
-	glEnd();
+		glLineWidth(2);
+		glBegin(GL_LINES);
+			glColor3f(0, 0, 0);
+			glVertex2f(650, 200);
+			glColor3f(0, 0, 0);
+			glVertex2f(650, 150);
+			glColor3f(0, 0, 0);
+			glVertex2f(650, 150);
+			glColor3f(0, 0, 0);
+			glVertex2f(250, 150);
+			glColor3f(0, 0, 0);
+			glVertex2f(250, 150);
+			glColor3f(0, 0, 0);
+			glVertex2f(250, 200);
+			glColor3f(0, 0, 0);
+		glEnd();
 
-	glColor3f(0, 0, 0);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glBegin(GL_POLYGON);
-	glVertex2f(225, 175);
-	glVertex2f(250, 200);
-	glVertex2f(275, 175);
-	glEnd();
-	frontAndRear(front, rear);
-	if (front != 0 && rear != 0)
-	{
-
-		int i = front;
-		glColor3f(1, 1, 1);
-		glRasterPos2f(135 + ((i) * 100), (250));
-
-		for (int j = 0; j < strlen(cqueue[i].c); j++)
-			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, cqueue[i].c[j]);
-		while (i != rear)
+		glColor3f(0, 0, 0);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glBegin(GL_POLYGON);
+			glVertex2f(225, 175);
+			glVertex2f(250, 200);
+			glVertex2f(275, 175);
+		glEnd();
+		frontAndRear(front, rear);
+		if (front != 0 && rear != 0)
 		{
-			i = (i % n) + 1;
+			
+			int i = front;
 			glColor3f(1, 1, 1);
-			glRasterPos2f(135 + (i * 100), (250));
+			glRasterPos2f(135 + ((i) * 100), (250));
 
 			for (int j = 0; j < strlen(cqueue[i].c); j++)
-				glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, cqueue[i].c[j]);
+					glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, cqueue[i].c[j]);
+				while (i != rear)
+				{
+					i = (i % n) + 1;
+					glColor3f(1, 1, 1);
+					glRasterPos2f(135 + (i * 100), (250));
+
+					for (int j = 0; j < strlen(cqueue[i].c); j++)
+							glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, cqueue[i].c[j]);
+				}
 		}
-	}
 	glutSwapBuffers(); //display the updated frame buffer(the pixels)
 
 }
 
-
 void render() //display function 
 {
 	glClear(GL_COLOR_BUFFER_BIT); //resetting the screen
-	
-	if (front == 0 && rear == 0)
+	if (front == 0)
 	{
 		drawBitmap(GLUT_BITMAP_HELVETICA_18, "1. Enter i to Push", 325, 650);
 		drawBitmap(GLUT_BITMAP_HELVETICA_18, "2. Enter d to Pop", 325, 610);
@@ -242,7 +221,6 @@ void reshape(int w, int h) {
 }
 
 int main(int argc, char** argv) {
-
 	glutInit(&argc, argv); //initialise glut (boilerplate)
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowPosition(1000, 100); //Where will the window pop up on screen?(coordinates)

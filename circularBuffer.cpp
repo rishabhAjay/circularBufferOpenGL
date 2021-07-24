@@ -10,7 +10,7 @@ struct elem
 	char c;
 };
 
-elem cqueue[5];
+elem cqueue[6];
 
 int front = 0, rear = 0, n = 5;
 char val;
